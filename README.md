@@ -47,6 +47,11 @@ Este comando intenta acceder a la aplicación backend-delay. Dado el delay de 60
 curl -v http://backend-delay.apps-crc.testing/
 ```
 
+Podemos ver el response code
+```bash 
+curl -o /dev/null -s -w "%{http_code}" http://backend-delay.apps-crc.testing
+```
+
 Resultado esperado: Fallo en la conexión o timeout. La aplicación no está lista para responder.
 
 ### 5. Configurar startupProbe
