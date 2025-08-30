@@ -1,0 +1,36 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: backend-delay
+  namespace: health-checks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-delay
+  template:
+    metadata:
+      labels:
+        app: backend-delay
+    spec:
+      containers:
+        - name: container
+          image: 'quay.io/ralvarez1/backend-delay:1.1'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DELAY
+              value: '5'
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

@@ -1,0 +1,17 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: backend-delay
+  namespace: health-checks
+spec:
+  rules:
+    - host: backend-delay.apps-crc.testing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-delay
+                port:
+                  number: 8080

@@ -1,0 +1,17 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: service-interconnect
+  namespace: health-checks
+spec:
+  rules:
+    - host: service-interconnect.apps-crc.testing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: service-interconnect
+                port:
+                  number: 8080
